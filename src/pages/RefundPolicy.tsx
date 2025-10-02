@@ -80,7 +80,7 @@ const RefundPolicy = () => {
             <ul className="list-disc pl-6 mt-2 space-y-2">
               <li>Your account will be immediately suspended</li>
               <li>Access to all premium content and licenses will be revoked</li>
-              <li>Please contact us first to resolve any billing issues</li>
+              <li>Please <Link to="/contact" className="text-primary hover:underline">contact us</Link> first to resolve any billing issues</li>
             </ul>
           </section>
 
@@ -96,7 +96,7 @@ const RefundPolicy = () => {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">8. Contact Information</h2>
-            <p>For refund inquiries or disputes, contact us at:</p>
+            <p>For refund inquiries or disputes, <Link to="/contact" className="text-primary hover:underline">contact us</Link> at:</p>
             <ul className="list-none mt-2 space-y-1">
               <li>Email: refunds@laundri.co.za</li>
               <li>Response time: 2-3 business days</li>

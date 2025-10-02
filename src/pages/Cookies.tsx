@@ -142,7 +142,7 @@ const Cookies = () => {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">Questions?</h2>
-            <p>If you have questions about our use of cookies, please contact us at privacy@laundri.co.za</p>
+            <p>If you have questions about our use of cookies, please <Link to="/contact" className="text-primary hover:underline">contact us</Link> at privacy@laundri.co.za</p>
           </section>
 
           <p className="text-sm pt-8 border-t">

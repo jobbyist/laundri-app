@@ -341,7 +341,7 @@ const PremiumCollections = () => {
           {/* Additional Info */}
           <div className="mt-8 md:mt-12 text-center px-2">
             <p className="text-sm md:text-base text-muted-foreground">
-              Need a custom collection? Contact us to discuss bespoke design services.
+              Need a custom collection? <Link to="/contact" className="text-primary hover:underline">Contact us</Link> to discuss bespoke design services.
             </p>
           </div>
         </div>

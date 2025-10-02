@@ -74,7 +74,7 @@ const Terms = () => {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">9. Contact Information</h2>
-            <p>For questions about these Terms of Service, please contact us at legal@laundri.co.za</p>
+            <p>For questions about these Terms of Service, please <Link to="/contact" className="text-primary hover:underline">contact us</Link> at legal@laundri.co.za</p>
           </section>
 
           <p className="text-sm pt-8 border-t">
