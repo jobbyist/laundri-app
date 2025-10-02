@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Preloader from "@/components/Preloader";
 import { AuthModal } from "@/components/AuthModal";
+import { AudioPlayer } from "@/components/AudioPlayer";
+import { FloatingIcons } from "@/components/FloatingIcons";
 import { useAuth } from "@/hooks/use-auth";
 import { useToast } from "@/hooks/use-toast";
 
@@ -216,13 +218,71 @@ const Index = () => {
                 className="group relative overflow-hidden rounded-lg aspect-square border border-border hover:border-primary transition-all duration-500"
               >
                 <div className="absolute inset-0 bg-secondary group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 flex items-center justify-center p-4">
+                <FloatingIcons categoryName={category.name} />
+                <div className="absolute inset-0 flex items-center justify-center p-4 z-10">
                   <h2 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter group-hover:text-primary transition-colors duration-300 text-center">
                     {category.name}
                   </h2>
                 </div>
               </Link>
             ))}
+          </div>
+
+          {/* Podcast Section */}
+          <div className="mt-16 md:mt-32 px-2">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
+                  The Dirty Laundri™ Series
+                </h2>
+                <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+                  Stream the latest episodes in our mini podcast-style series featuring bite-sized, deep dives into all aspects of the fashion industry in Africa and how Laundri™ fits into the mix.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                {/* Episode 1 */}
+                <div className="bg-card border border-border rounded-lg p-6">
+                  <h3 className="text-xl md:text-2xl font-black mb-2">
+                    Episode 1: Artisan vs. Algorithm: Can AI Authentically Co-create with African Textiles?
+                  </h3>
+                  <p className="text-muted-foreground mb-4">
+                    Exploring the intersection of traditional African textile craftsmanship and artificial intelligence.
+                  </p>
+                  <AudioPlayer title="Episode 1" episodeNumber={1} />
+                </div>
+
+                {/* Episode 2 */}
+                <div className="bg-card border border-border rounded-lg p-6">
+                  <h3 className="text-xl md:text-2xl font-black mb-2">
+                    Episode 2: From Lagos to the Metaverse: Hacking the Global Market with AI
+                  </h3>
+                  <p className="text-muted-foreground mb-4">
+                    How African fashion entrepreneurs are leveraging AI to break into global markets and the metaverse.
+                  </p>
+                  <AudioPlayer title="Episode 2" episodeNumber={2} />
+                </div>
+
+                {/* Episode 3 */}
+                <div className="bg-card border border-border rounded-lg p-6">
+                  <h3 className="text-xl md:text-2xl font-black mb-2">
+                    Episode 3: Digital Colonialism or Cultural Renaissance? The Fight for Africa's Digital IP
+                  </h3>
+                  <p className="text-muted-foreground mb-4">
+                    A critical examination of intellectual property rights and cultural preservation in the digital age.
+                  </p>
+                  <AudioPlayer title="Episode 3" episodeNumber={3} />
+                </div>
+              </div>
+
+              <div className="text-center mt-8">
+                <Link to="/podcast">
+                  <Button variant="outline" size="lg" className="font-bold">
+                    View All Episodes
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
 
           {/* Features Section */}
