@@ -1,0 +1,40 @@
+{
+  "name": "Laundri - AI Fashion Design Platform",
+  "short_name": "Laundri",
+  "description": "Create your fashion label with AI-powered design tools. Design, manufacture, and launch your brand.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#F7DC6F",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "shopping", "design"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "AI Designer",
+      "short_name": "Designer",
+      "description": "Launch AI Design Tool",
+      "url": "/ai-design-tool",
+      "icons": []
+    }
+  ]
+}

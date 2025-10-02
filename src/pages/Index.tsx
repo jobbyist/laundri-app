@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { Menu, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Preloader from "@/components/Preloader";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { AuthModal } from "@/components/AuthModal";
+import { useAuth } from "@/hooks/use-auth";
 
 const Index = () => {
   const [showPreloader, setShowPreloader] = useState(true);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const { user, isAuthenticated, logout, updateUser } = useAuth();
 
   const categories = [
     { name: "HEADWEAR", path: "/category/headwear" },
@@ -16,6 +21,17 @@ const Index = () => {
     { name: "FOOTWEAR", path: "/category/footwear" },
     { name: "UNDERWEAR", path: "/category/underwear" },
   ];
+
+  const handleProtectedAction = (e: React.MouseEvent, path: string) => {
+    if (!isAuthenticated) {
+      e.preventDefault();
+      setShowAuthModal(true);
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
 
   if (showPreloader) {
     return <Preloader onComplete={() => setShowPreloader(false)} />;
@@ -54,6 +70,20 @@ const Index = () => {
                     </Link>
                   ))}
                 </div>
+                <div className="border-t border-border pt-4 mt-4 flex flex-col gap-3">
+                  <ThemeToggle />
+                  {isAuthenticated ? (
+                    <Button onClick={handleLogout} variant="outline" className="w-full justify-start">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Log Out
+                    </Button>
+                  ) : (
+                    <Button onClick={() => setShowAuthModal(true)} variant="default" className="w-full justify-start">
+                      <LogIn className="mr-2 h-4 w-4" />
+                      Sign Up / Log In
+                    </Button>
+                  )}
+                </div>
               </nav>
             </SheetContent>
           </Sheet>
@@ -67,11 +97,34 @@ const Index = () => {
             />
           </Link>
 
-          <Link to="/ai-design-tool" className="flex-shrink-0">
-            <Button variant="default" className="font-bold btn-glow text-sm md:text-base px-3 md:px-4">
-              Start Creating
-            </Button>
-          </Link>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="hidden md:block">
+              <ThemeToggle />
+            </div>
+            {isAuthenticated ? (
+              <div className="hidden md:flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Welcome, {user?.name}</span>
+                <Button onClick={handleLogout} variant="ghost" size="sm">
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Log Out
+                </Button>
+              </div>
+            ) : (
+              <Button onClick={() => setShowAuthModal(true)} variant="ghost" size="sm" className="hidden md:flex">
+                <LogIn className="h-4 w-4 mr-2" />
+                Sign Up / Log In
+              </Button>
+            )}
+            <Link 
+              to="/ai-design-tool" 
+              onClick={(e) => handleProtectedAction(e, "/ai-design-tool")}
+              className="flex-shrink-0"
+            >
+              <Button variant="default" className="font-bold btn-glow text-sm md:text-base px-3 md:px-4">
+                Start Creating
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -88,12 +141,18 @@ const Index = () => {
               At Laundri™, we believe in the power of creativity to disrupt, inspire, and shape the culture of tomorrow. Our mission is to be the laundry for ideas—scrubbing out the mundane, rinsing the ordinary, and pressing forward with bold, fresh perspectives.
             </p>
             <div className="flex gap-3 md:gap-4 justify-center flex-wrap px-2">
-              <Link to="/ai-design-tool">
+              <Link 
+                to="/ai-design-tool"
+                onClick={(e) => handleProtectedAction(e, "/ai-design-tool")}
+              >
                 <Button size="lg" className="font-bold text-base md:text-lg px-6 md:px-8 btn-glow">
                   Launch AI Designer
                 </Button>
               </Link>
-              <Link to="/premium-collections">
+              <Link 
+                to="/premium-collections"
+                onClick={(e) => handleProtectedAction(e, "/premium-collections")}
+              >
                 <Button size="lg" variant="outline" className="font-bold text-base md:text-lg px-6 md:px-8 btn-glow">
                   Browse Collections
                 </Button>
@@ -107,6 +166,7 @@ const Index = () => {
               <Link
                 key={category.name}
                 to={category.path}
+                onClick={(e) => handleProtectedAction(e, category.path)}
                 className="group relative overflow-hidden rounded-lg aspect-square border border-border hover:border-primary transition-all duration-500"
               >
                 <div className="absolute inset-0 bg-secondary group-hover:scale-105 transition-transform duration-500" />
@@ -159,6 +219,12 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      <AuthModal 
+        open={showAuthModal} 
+        onOpenChange={setShowAuthModal}
+        onAuthSuccess={updateUser}
+      />
     </div>
   );
 };

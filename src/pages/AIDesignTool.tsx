@@ -126,7 +126,7 @@ const AIDesignTool = () => {
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full px-4">
             <h1 className="text-4xl md:text-6xl font-bold mb-12 text-center">
-              How can I help you today?
+              What are we creating today?
             </h1>
           </div>
         ) : (
@@ -188,7 +188,7 @@ const AIDesignTool = () => {
             </div>
           </div>
           <p className="text-sm text-muted-foreground text-center mt-4">
-            AI-powered fashion design assistant • Powered by Google Gemini (Free)
+            AI-powered fashion design assistant • Laundri™ (Beta) [v1.0.0]
           </p>
         </div>
       </div>
