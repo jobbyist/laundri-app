@@ -39,7 +39,7 @@ export function AuthModal({ open, onOpenChange, onAuthSuccess }: AuthModalProps)
     localStorage.setItem("laundri_user", JSON.stringify({ email, name, plan: selectedPlan }));
     toast({
       title: "Account Created!",
-      description: `Welcome to Laundri™! You've selected the ${selectedPlan === "year" ? "$25/year" : "$10/90-day trial"} plan.`,
+      description: `Welcome to Laundri™! You've selected the ${selectedPlan === "year" ? "$25/year (promotional price)" : "$10/30-day trial"} plan.`,
     });
     onAuthSuccess();
     onOpenChange(false);
@@ -139,9 +139,13 @@ export function AuthModal({ open, onOpenChange, onAuthSuccess }: AuthModalProps)
                         Complete access to all features
                       </div>
                     </div>
-                    <div className="font-black text-xl">$25</div>
+                    <div className="flex items-baseline gap-1">
+                      <div className="font-black text-xl">$25</div>
+                      <div className="text-sm text-muted-foreground line-through">$49</div>
+                    </div>
                   </div>
                   <div className="text-xs text-muted-foreground mt-2">1 Year Subscription</div>
+                  <div className="text-xs text-primary mt-1">Promo ends Dec 1, 2025</div>
                 </button>
 
                 <button
@@ -161,7 +165,8 @@ export function AuthModal({ open, onOpenChange, onAuthSuccess }: AuthModalProps)
                     </div>
                     <div className="font-black text-xl">$10</div>
                   </div>
-                  <div className="text-xs text-muted-foreground mt-2">90-Day Trial</div>
+                  <div className="text-xs text-muted-foreground mt-2">30-Day Trial</div>
+                  <div className="text-xs text-muted-foreground mt-1 italic">* No AI Design Assistant</div>
                 </button>
               </div>
             </div>

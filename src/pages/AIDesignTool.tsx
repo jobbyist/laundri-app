@@ -1,15 +1,75 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, Send, Smile } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, Send, Smile, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/use-auth";
+import { Card } from "@/components/ui/card";
 
 const AIDesignTool = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { isAuthenticated, hasPaid, hasAIAccess, user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated || !hasPaid) {
+      toast({
+        title: "Access Denied",
+        description: "Please sign up and subscribe to access this feature.",
+        variant: "destructive",
+      });
+      navigate("/subscribe");
+    }
+  }, [isAuthenticated, hasPaid, navigate, toast]);
+
+  // Show upgrade prompt for trial users
+  if (isAuthenticated && hasPaid && !hasAIAccess) {
+    return (
+      <div className="min-h-screen bg-background text-foreground">
+        <header className="border-b border-border px-6 py-4 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 hover:text-primary transition-colors">
+            <ArrowLeft className="h-5 w-5" />
+            <span className="font-bold">Back to Home</span>
+          </Link>
+          <div className="text-xl font-black">AI DESIGN TOOL</div>
+          <div className="w-32" />
+        </header>
+
+        <div className="container mx-auto px-4 py-20">
+          <div className="max-w-2xl mx-auto text-center">
+            <Card className="p-12">
+              <div className="flex justify-center mb-6">
+                <Lock className="h-24 w-24 text-primary" />
+              </div>
+              <h1 className="text-4xl font-black mb-4">AI Design Assistant</h1>
+              <p className="text-xl text-muted-foreground mb-8">
+                The AI Fashion Design Assistant is only available with the Full Access annual subscription.
+              </p>
+              <p className="text-lg text-muted-foreground mb-8">
+                You're currently on the <strong>30-Day Limited Trial</strong> plan. Upgrade to unlock:
+              </p>
+              <ul className="text-left mb-8 space-y-2 max-w-md mx-auto">
+                <li>✓ AI-powered fashion design assistant</li>
+                <li>✓ Unlimited AI design requests</li>
+                <li>✓ Access to all premium collections</li>
+                <li>✓ Priority support & consultations</li>
+                <li>✓ Advanced design tools</li>
+              </ul>
+              <Link to="/payment-annual">
+                <Button size="lg" className="text-lg font-bold px-12">
+                  Upgrade to Full Access - $25/year
+                </Button>
+              </Link>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const handleSend = async () => {
     if (!message.trim()) return;

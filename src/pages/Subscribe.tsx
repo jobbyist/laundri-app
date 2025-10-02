@@ -37,14 +37,10 @@ const Subscribe = () => {
               <div className="mb-6">
                 <div className="text-sm font-bold text-primary mb-2">LIMITED TRIAL</div>
                 <h2 className="text-4xl font-black mb-2">$10</h2>
-                <p className="text-muted-foreground">for 3 months</p>
+                <p className="text-muted-foreground">for 30 days</p>
               </div>
 
               <ul className="space-y-4 mb-8">
-                <li className="flex items-start gap-3">
-                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                  <span>AI-powered fashion design assistant</span>
-                </li>
                 <li className="flex items-start gap-3">
                   <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                   <span>Access to design templates</span>
@@ -61,11 +57,16 @@ const Subscribe = () => {
                   <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                   <span>Email support</span>
                 </li>
+                <li className="flex items-start gap-3 opacity-50">
+                  <span className="text-sm">* AI Fashion Design Assistant not included</span>
+                </li>
               </ul>
 
-              <Button size="lg" variant="outline" className="w-full text-lg font-bold">
-                Start 3-Month Trial
-              </Button>
+              <Link to="/payment-trial">
+                <Button size="lg" variant="outline" className="w-full text-lg font-bold">
+                  Start 30-Day Trial
+                </Button>
+              </Link>
             </Card>
 
             {/* Annual Plan */}
@@ -76,14 +77,24 @@ const Subscribe = () => {
               
               <div className="mb-6">
                 <div className="text-sm font-bold text-primary mb-2">FULL ACCESS</div>
-                <h2 className="text-4xl font-black mb-2">$25</h2>
+                <div className="flex items-baseline gap-2">
+                  <h2 className="text-4xl font-black">$25</h2>
+                  <span className="text-xl text-muted-foreground line-through">$49</span>
+                </div>
                 <p className="text-muted-foreground">per year</p>
+                <p className="text-xs text-primary mt-2 font-semibold">
+                  Promotional offer ends December 1, 2025
+                </p>
               </div>
 
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-4 mb-6">
                 <li className="flex items-start gap-3">
                   <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                   <span>Everything in Trial plan</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <span>AI-powered fashion design assistant</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
@@ -111,9 +122,15 @@ const Subscribe = () => {
                 </li>
               </ul>
 
-              <Button size="lg" className="w-full text-lg font-bold">
-                Subscribe Annually
-              </Button>
+              <p className="text-xs text-muted-foreground mb-4 text-center italic">
+                Use the promotional code <span className="font-bold text-primary">LAUNDRI25</span> during checkout to claim the discount.
+              </p>
+
+              <Link to="/payment-annual">
+                <Button size="lg" className="w-full text-lg font-bold">
+                  Subscribe Annually
+                </Button>
+              </Link>
             </Card>
           </div>
 

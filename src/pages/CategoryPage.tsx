@@ -1,15 +1,29 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AuthModal } from "@/components/AuthModal";
 import { useAuth } from "@/hooks/use-auth";
+import { useToast } from "@/hooks/use-toast";
 
 const CategoryPage = () => {
   const { category } = useParams();
   const categoryName = category?.toUpperCase() || "CATEGORY";
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const { isAuthenticated, updateUser } = useAuth();
+  const { isAuthenticated, hasPaid, updateUser } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (isAuthenticated && !hasPaid) {
+      toast({
+        title: "Subscription Required",
+        description: "Please complete your subscription to access category pages.",
+        variant: "destructive",
+      });
+      navigate("/subscribe");
+    }
+  }, [isAuthenticated, hasPaid, navigate, toast]);
 
   const handleProtectedAction = (e: React.MouseEvent) => {
     if (!isAuthenticated) {
