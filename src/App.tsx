@@ -19,13 +19,14 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import RefundPolicy from "./pages/RefundPolicy";
 import Cookies from "./pages/Cookies";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} forcedTheme="light">
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/registration-success" element={<RegistrationSuccess />} />
             <Route path="/registration-failed" element={<RegistrationFailed />} />
             <Route path="/podcast" element={<Podcast />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />

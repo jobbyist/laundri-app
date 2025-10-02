@@ -56,6 +56,25 @@ export function AuthModal({ open, onOpenChange, onAuthSuccess }: AuthModalProps)
       return;
     }
 
+    // Check for admin credentials
+    if (email === "admin@laundri.xyz" && password === "Laundri101$") {
+      localStorage.setItem("laundri_user", JSON.stringify({ 
+        email, 
+        name: "Admin User",
+        plan: "year",
+        hasPaid: true,
+        isAdmin: true
+      }));
+      toast({
+        title: "Admin Access Granted!",
+        description: "You have full access to all features.",
+      });
+      onAuthSuccess();
+      onOpenChange(false);
+      resetForm();
+      return;
+    }
+
     // Mock authentication - in real app this would call API
     localStorage.setItem("laundri_user", JSON.stringify({ email, name: "User" }));
     toast({
