@@ -7,7 +7,14 @@ interface PreloaderProps {
 
 const Preloader = ({ onComplete }: PreloaderProps) => {
   const [progress, setProgress] = useState(0);
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentTheme = mounted ? (theme === "system" ? resolvedTheme : theme) : "light";
 
   useEffect(() => {
     const duration = 8000; // 8 seconds
@@ -37,7 +44,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
       {/* Logo */}
       <div className="mb-8">
         <img
-          src={theme === "dark" ? "/laundriwhite.svg" : "/laundriblack.svg"}
+          src={currentTheme === "dark" ? "/laundriwhite.svg" : "/laundriblack.svg"}
           alt="Laundri Logo"
           className="w-48 h-auto"
         />

@@ -8,12 +8,21 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { AuthModal } from "@/components/AuthModal";
 import { useAuth } from "@/hooks/use-auth";
 import { useTheme } from "next-themes";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   const [showPreloader, setShowPreloader] = useState(true);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const { user, isAuthenticated, logout, updateUser } = useAuth();
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+  const { toast } = useToast();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentTheme = mounted ? (theme === "system" ? resolvedTheme : theme) : "light";
 
   const categories = [
     { name: "HEADWEAR", path: "/category/headwear" },
@@ -28,6 +37,17 @@ const Index = () => {
     if (!isAuthenticated) {
       e.preventDefault();
       setShowAuthModal(true);
+    } else if (!user?.hasPaid) {
+      e.preventDefault();
+      toast({
+        title: "Subscription Required",
+        description: "Please complete your subscription to access this feature.",
+        variant: "destructive",
+      });
+      // Optionally redirect to subscribe page
+      setTimeout(() => {
+        window.location.href = "/subscribe";
+      }, 1500);
     }
   };
 
@@ -92,7 +112,7 @@ const Index = () => {
 
           <Link to="/" className="flex items-center flex-shrink min-w-0">
             <img 
-              src={theme === "dark" ? "/laundriwhite.svg" : "/laundriblack.svg"}
+              src={currentTheme === "dark" ? "/laundriwhite.svg" : "/laundriblack.svg"}
               alt="Laundri Logo" 
               className="h-8 md:h-10 w-auto"
               style={{ maxWidth: '150px' }}

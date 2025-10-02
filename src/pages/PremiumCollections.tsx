@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Shield, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { useAuth } from "@/hooks/use-auth";
+import { useToast } from "@/hooks/use-toast";
 
 interface Collection {
   id: string;
@@ -183,6 +185,20 @@ const collections: Collection[] = [
 
 const PremiumCollections = () => {
   const [selectedCollection, setSelectedCollection] = useState<Collection | null>(null);
+  const { isAuthenticated, hasPaid } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (!isAuthenticated || !hasPaid) {
+      toast({
+        title: "Access Denied",
+        description: "Please sign up and subscribe to access Premium Collections.",
+        variant: "destructive",
+      });
+      navigate("/subscribe");
+    }
+  }, [isAuthenticated, hasPaid, navigate, toast]);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
