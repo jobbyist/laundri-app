@@ -106,7 +106,7 @@ const Privacy = () => {
 
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">11. Contact Us</h2>
-            <p>For questions about this Privacy Policy or our data practices, please contact us at privacy@laundri.co.za</p>
+            <p>For questions about this Privacy Policy or our data practices, please <Link to="/contact" className="text-primary hover:underline">contact us</Link> at privacy@laundri.co.za</p>
           </section>
 
           <p className="text-sm pt-8 border-t">

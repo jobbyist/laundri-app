@@ -50,7 +50,7 @@ const RegistrationFailed = () => {
 
         <div className="mt-8 pt-8 border-t">
           <p className="text-sm text-muted-foreground">
-            Need help? Contact our support team at{" "}
+            Need help? <Link to="/contact" className="text-primary hover:underline">Contact</Link> our support team at{" "}
             <a href="mailto:support@laundri.co.za" className="text-primary hover:underline">
               support@laundri.co.za
             </a>
