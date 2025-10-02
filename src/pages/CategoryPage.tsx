@@ -1,10 +1,22 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AuthModal } from "@/components/AuthModal";
+import { useAuth } from "@/hooks/use-auth";
 
 const CategoryPage = () => {
   const { category } = useParams();
   const categoryName = category?.toUpperCase() || "CATEGORY";
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const { isAuthenticated, updateUser } = useAuth();
+
+  const handleProtectedAction = (e: React.MouseEvent) => {
+    if (!isAuthenticated) {
+      e.preventDefault();
+      setShowAuthModal(true);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -24,13 +36,19 @@ const CategoryPage = () => {
             Design custom {category} with our AI-powered tool. Choose from pre-made fabrics and
             templates, then connect with on-demand suppliers.
           </p>
-          <Link to="/ai-design-tool">
+          <Link to="/ai-design-tool" onClick={handleProtectedAction}>
             <Button size="lg" className="text-lg font-bold px-12">
               Start Designing {categoryName}
             </Button>
           </Link>
         </div>
       </div>
+
+      <AuthModal 
+        open={showAuthModal} 
+        onOpenChange={setShowAuthModal}
+        onAuthSuccess={updateUser}
+      />
     </div>
   );
 };
