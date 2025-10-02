@@ -1,0 +1,4 @@
+project_id = "klnoblxgnlmmtzkcdogw"
+
+[functions.fashion-ai-chat]
+verify_jwt = false
