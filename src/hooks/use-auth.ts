@@ -4,6 +4,7 @@ interface User {
   email: string;
   name: string;
   plan?: "year" | "trial";
+  hasPaid?: boolean;
 }
 
 export function useAuth() {
@@ -49,6 +50,8 @@ export function useAuth() {
     user,
     isLoading,
     isAuthenticated: !!user,
+    hasPaid: user?.hasPaid || false,
+    hasAIAccess: user?.hasPaid && user?.plan === "year",
     login,
     logout,
     updateUser,

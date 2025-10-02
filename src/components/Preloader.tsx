@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 interface PreloaderProps {
   onComplete: () => void;
@@ -6,6 +7,7 @@ interface PreloaderProps {
 
 const Preloader = ({ onComplete }: PreloaderProps) => {
   const [progress, setProgress] = useState(0);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const duration = 8000; // 8 seconds
@@ -31,11 +33,11 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white">
+    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background">
       {/* Logo */}
       <div className="mb-8">
         <img
-          src="https://raw.githubusercontent.com/mavumo/laundri/refs/heads/main/logo.svg"
+          src={theme === "dark" ? "/laundriwhite.svg" : "/laundriblack.svg"}
           alt="Laundri Logo"
           className="w-48 h-auto"
         />
@@ -43,7 +45,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
 
       {/* Loading Bar Container */}
       <div className="w-80 max-w-[90vw]">
-        <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div className="relative h-2 bg-muted rounded-full overflow-hidden">
           {/* Gradient Loading Bar */}
           <div
             className="absolute inset-y-0 left-0 rounded-full transition-all duration-300 ease-out"
@@ -57,7 +59,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
         </div>
 
         {/* Loading Text */}
-        <p className="text-center mt-4 text-gray-700 font-medium">
+        <p className="text-center mt-4 text-foreground font-medium">
           Loading Your Experience…
         </p>
       </div>

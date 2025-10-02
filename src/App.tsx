@@ -10,6 +10,10 @@ import PremiumCollections from "./pages/PremiumCollections";
 import CategoryPage from "./pages/CategoryPage";
 import CheckoutAILNURD from "./pages/CheckoutAILNURD";
 import Subscribe from "./pages/Subscribe";
+import PaymentTrial from "./pages/PaymentTrial";
+import PaymentAnnual from "./pages/PaymentAnnual";
+import RegistrationSuccess from "./pages/RegistrationSuccess";
+import RegistrationFailed from "./pages/RegistrationFailed";
 import Podcast from "./pages/Podcast";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
@@ -33,6 +37,10 @@ const App = () => (
             <Route path="/category/:category" element={<CategoryPage />} />
             <Route path="/buy-ailnurd" element={<CheckoutAILNURD />} />
             <Route path="/subscribe" element={<Subscribe />} />
+            <Route path="/payment-trial" element={<PaymentTrial />} />
+            <Route path="/payment-annual" element={<PaymentAnnual />} />
+            <Route path="/registration-success" element={<RegistrationSuccess />} />
+            <Route path="/registration-failed" element={<RegistrationFailed />} />
             <Route path="/podcast" element={<Podcast />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />

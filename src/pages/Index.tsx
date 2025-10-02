@@ -7,11 +7,13 @@ import Preloader from "@/components/Preloader";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { AuthModal } from "@/components/AuthModal";
 import { useAuth } from "@/hooks/use-auth";
+import { useTheme } from "next-themes";
 
 const Index = () => {
   const [showPreloader, setShowPreloader] = useState(true);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const { user, isAuthenticated, logout, updateUser } = useAuth();
+  const { theme } = useTheme();
 
   const categories = [
     { name: "HEADWEAR", path: "/category/headwear" },
@@ -90,7 +92,7 @@ const Index = () => {
 
           <Link to="/" className="flex items-center flex-shrink min-w-0">
             <img 
-              src="https://raw.githubusercontent.com/mavumo/laundri/refs/heads/main/logo.svg" 
+              src={theme === "dark" ? "/laundriwhite.svg" : "/laundriblack.svg"}
               alt="Laundri Logo" 
               className="h-8 md:h-10 w-auto"
               style={{ maxWidth: '150px' }}
