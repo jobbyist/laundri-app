@@ -62,6 +62,30 @@ This project is built with:
 
 ## How can I deploy this project?
 
+### GitHub Pages Deployment
+
+This project is configured to automatically deploy to GitHub Pages with a custom domain.
+
+**Automatic Deployment:**
+- The site automatically deploys to GitHub Pages when changes are pushed to the `main` branch
+- The deployment workflow is located at `.github/workflows/deploy.yml`
+- Custom domain: `app.laundri.co.za`
+
+**Setup Requirements:**
+1. Enable GitHub Pages in repository settings:
+   - Go to Settings > Pages
+   - Under "Build and deployment", set Source to "GitHub Actions"
+2. Configure DNS records for your custom domain:
+   - Add a CNAME record pointing `app.laundri.co.za` to `<username>.github.io`
+   - Or add A records pointing to GitHub Pages IP addresses
+   - See [GitHub's custom domain documentation](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
+
+**Manual Deployment:**
+- You can also trigger a deployment manually from the Actions tab
+- Select the "Deploy to GitHub Pages" workflow and click "Run workflow"
+
+### Alternative: Lovable Deployment
+
 Simply open [Lovable](https://lovable.dev/projects/3e71d947-cdfd-40bf-9846-7e00305892cc) and click on Share -> Publish.
 
 ## Can I connect a custom domain to my Lovable project?
